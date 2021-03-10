@@ -1,0 +1,35 @@
+.nav-link {
+  color: rgb(187, 136, 247);
+}
+
+.nav {
+  border-color: #8827f7 !important;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: white;
+  background-color: #3d007e;
+  border-color: #8827f7;
+}
+.nav-tabs,
+.nav-tabs .nav-link:hover {
+  color: white;
+  background-color: transparent;
+  border-color: #8827f7;
+}
+
+#new-button {
+  background: #8827f775;
+  color: white;
+  border: 0.2rem ridge #8827f7;
+  border-radius: 0.25rem;
+}
+
+#new-button:hover {
+  background: #8827f750;
+}
+
+#new-button:active {
+  background: #8827f725;
+}

@@ -1,0 +1,16 @@
+#send-btn {
+  padding: 0.1rem 1rem;
+  background: #8827f725;
+  border: 0.1rem solid rgb(235, 187, 255);
+  border-bottom-right-radius: 0.4rem;
+  border-top-right-radius: 0.4rem;
+  color: white;
+}
+
+#send-btn:hover {
+  background: #8827f750;
+}
+
+#send-btn:active {
+  background: #8827f775;
+}

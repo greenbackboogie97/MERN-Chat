@@ -1,0 +1,22 @@
+.btn-div {
+  display: flex;
+  justify-content: center;
+}
+
+#form-btn {
+  margin: 0px 1rem;
+  padding: 0.4rem;
+  color: rgb(255, 255, 255);
+  border: 0.2rem groove #8827f7;
+  background: #8827f7;
+  border-radius: 0.4rem;
+}
+
+#form-btn:active {
+  border: 0.2rem solid #8827f7;
+  transform: translate3d(0.1rem, 0.1rem, 0);
+}
+
+.label {
+  color: white;
+}

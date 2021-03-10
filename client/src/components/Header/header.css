@@ -1,0 +1,26 @@
+:root {
+  --gradient: linear-gradient(92deg, #6600da, #7714e9, #8827f7, #964aff);
+}
+
+.brand {
+  font-weight: 500;
+  background: var(--gradient);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-animation 2.5s ease-in-out infinite;
+  cursor: default;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 53%;
+  }
+  50% {
+    background-position: 100% 48%;
+  }
+  100% {
+    background-position: 0% 53%;
+  }
+}

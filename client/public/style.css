@@ -1,0 +1,60 @@
+@font-face {
+  font-family: "pixel";
+  src: url(./Retro\ Gaming.ttf);
+}
+
+:root {
+  --gradientB: linear-gradient(92deg, #15002b, #1d003c, #2c005b);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: "pixel";
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8827f73a;
+  border-radius: 100%;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #8827f779;
+}
+
+body {
+  box-sizing: border-box;
+  background: var(--gradientB);
+  background-size: 800% 800%;
+  animation: gradient-animation 8.5s ease-in-out infinite;
+}
+
+#root {
+  margin: 0 auto;
+  padding: 0;
+  background: var(--gradientB);
+  background-size: 800% 800%;
+  animation: gradient-animation 8.5s ease-in-out infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 53%;
+  }
+  50% {
+    background-position: 100% 48%;
+  }
+  100% {
+    background-position: 0% 53%;
+  }
+}
