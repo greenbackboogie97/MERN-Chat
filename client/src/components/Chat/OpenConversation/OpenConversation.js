@@ -20,21 +20,53 @@ export default function OpenConversation() {
   };
 
   return (
-    <Form>
-      <Form.Group>
-        <InputGroup>
-          <Form.Control
+    <div className="conversation-container">
+      <div className="messages-container">
+        <div className="message-block">
+          <p className="message-text">Hey how are you</p>
+        </div>
+        <div className="message-block">
+          <p className="message-text">Hey how are you</p>
+        </div>
+        <div className="message-block">
+          <p className="message-text">Hey how are you</p>
+        </div>
+        <div className="message-block">
+          <p className="message-text">Hey how are you</p>
+        </div>
+        <div className="message-block">
+          <p className="message-text">Hey how are you</p>
+        </div>
+        <div className="message-block">
+          <p className="message-text">Hey how are you</p>
+        </div>
+        <div className="message-block">
+          <p className="message-text">Hey how are you</p>
+        </div>
+        <div className="message-block">
+          <p className="message-text">Hey how are you</p>
+        </div>
+        <div className="message-block">
+          <p className="message-text">Hey how are you</p>
+        </div>
+        <div className="message-block">
+          <p className="message-text">Hey how are you</p>
+        </div>
+      </div>
+      <div className="form-container">
+        <form>
+          <input
+            className="text-input"
+            type="text"
+            placeholder="write something..."
             onChange={handleChange}
             value={text.toString()}
-            placeholder="Write something..."
-          ></Form.Control>
-          <InputGroup.Append>
-            <button id="send-btn" onClick={handleClick}>
-              <IoIosSend />
-            </button>
-          </InputGroup.Append>
-        </InputGroup>
-      </Form.Group>
-    </Form>
+          />
+          <button className="send-btn" onClick={handleClick}>
+            <IoIosSend />
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }

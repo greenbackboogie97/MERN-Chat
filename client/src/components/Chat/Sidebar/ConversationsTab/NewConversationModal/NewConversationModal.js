@@ -8,7 +8,6 @@ import {
   OverlayTrigger,
   Popover,
 } from "react-bootstrap";
-import "./newConversationModal.css";
 import ContactsContext from "../../../../../context/ContactsContext";
 import ConversationsContext from "../../../../../context/ConversationsContext";
 import UserContext from "../../../../../context/UserContext";
@@ -17,6 +16,7 @@ import Axios from "axios";
 export default function NewConversationModal({ closeModal }) {
   const { contacts } = useContext(ContactsContext);
   const { userData } = useContext(UserContext);
+  // eslint-disable-next-line no-unused-vars
   const { conversations, setConversations } = useContext(ConversationsContext);
 
   const [error, setError] = useState();

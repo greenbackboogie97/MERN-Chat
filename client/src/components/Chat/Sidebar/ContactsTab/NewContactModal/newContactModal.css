@@ -5,7 +5,6 @@
 
 .modal-content {
   background: rgba(87, 0, 164, 0.125);
-  box-shadow: 1px 1px 10px rgba(206, 136, 250, 0.262);
   backdrop-filter: blur(0.7rem);
 }
 

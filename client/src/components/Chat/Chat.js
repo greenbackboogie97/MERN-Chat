@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { Jumbotron, Row, Col, Container } from "react-bootstrap";
+import "./chat.css";
 import Sidebar from "./Sidebar/Sidebar";
 import OpenConversation from "./OpenConversation/OpenConversation";
 import ConversationReplacement from "./ConversationReplacement/ConversationReplacement";
@@ -64,37 +64,30 @@ export default function Chat() {
   });
 
   return (
-    <Jumbotron
-      className="d-flex align-items-stretch vh-100"
-      style={{ background: "transparent" }}
-    >
-      <Container fluid>
-        <Row className="h-100">
-          <ContactsContext.Provider value={{ contacts, setContacts }}>
-            <ConversationsContext.Provider
-              value={{
-                conversations: formatedConversations,
-                setConversations,
-              }}
-            >
-              <OpenConversationIDContext.Provider
-                value={{ openConversationID, setOpenConversationID }}
-              >
-                <Col lg="3">
-                  <Sidebar />
-                </Col>
-                <Col lg="9">
-                  {openConversationID ? (
-                    <OpenConversation />
-                  ) : (
-                    <ConversationReplacement />
-                  )}
-                </Col>
-              </OpenConversationIDContext.Provider>
-            </ConversationsContext.Provider>
-          </ContactsContext.Provider>
-        </Row>
-      </Container>
-    </Jumbotron>
+    <ContactsContext.Provider value={{ contacts, setContacts }}>
+      <ConversationsContext.Provider
+        value={{
+          conversations: formatedConversations,
+          setConversations,
+        }}
+      >
+        <OpenConversationIDContext.Provider
+          value={{ openConversationID, setOpenConversationID }}
+        >
+          <div className="chat-container">
+            <nav>
+              <Sidebar />
+            </nav>
+            <main>
+              {openConversationID ? (
+                <OpenConversation />
+              ) : (
+                <ConversationReplacement />
+              )}
+            </main>
+          </div>
+        </OpenConversationIDContext.Provider>
+      </ConversationsContext.Provider>
+    </ContactsContext.Provider>
   );
 }

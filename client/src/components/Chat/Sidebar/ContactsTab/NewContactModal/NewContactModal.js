@@ -15,6 +15,7 @@ export default function NewContactModal({ closeModal }) {
   const [error, setError] = useState();
 
   const { userData } = useContext(UserContext);
+  // eslint-disable-next-line no-unused-vars
   const { contacts, setContacts } = useContext(ContactsContext);
 
   const handleSubmit = async (e) => {
@@ -52,7 +53,6 @@ export default function NewContactModal({ closeModal }) {
 
   return (
     <>
-      <Modal.Header closeButton>Add Contact</Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group>

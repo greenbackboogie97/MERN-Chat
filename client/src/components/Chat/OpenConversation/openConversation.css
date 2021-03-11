@@ -1,16 +1,55 @@
-#send-btn {
-  padding: 0.1rem 1rem;
+.conversation-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.messages-container {
+  padding: 5%;
+  overflow: auto;
+  flex: auto;
+  height: 92%;
+  position: relative;
+}
+
+.message-block {
+  background: red;
+  width: fit-content;
+}
+
+.input-container {
+  display: flex;
+  width: 100%;
+  height: 8%;
+  position: relative;
+}
+
+.text-input {
+  background: #8827f725;
+  border: 0.1rem solid rgb(235, 187, 255);
+  height: 100%;
+}
+
+.send-btn {
+  padding: 0.1rem 0.8rem;
   background: #8827f725;
   border: 0.1rem solid rgb(235, 187, 255);
   border-bottom-right-radius: 0.4rem;
   border-top-right-radius: 0.4rem;
   color: white;
+  height: 100%;
 }
 
-#send-btn:hover {
+.send-btn:hover {
   background: #8827f750;
 }
 
-#send-btn:active {
+.send-btn:active {
   background: #8827f775;
 }

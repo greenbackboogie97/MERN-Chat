@@ -1,0 +1,7 @@
+.chat-container {
+  max-width: 120rem;
+  margin: 8rem auto;
+  background: white;
+  min-height: 50rem;
+  box-shadow: var(--shadow-dark);
+}
