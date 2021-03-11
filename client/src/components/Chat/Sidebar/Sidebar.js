@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { Tab, Nav, Modal, Container, Row, Col } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import "./sidebar.css";
 import ConversationsTab from "./ConversationsTab/ConversationsTab";
 import NewConversationModal from "./ConversationsTab/NewConversationModal/NewConversationModal";
 import NewContactModal from "./ContactsTab/NewContactModal/NewContactModal";
 import ContactsTab from "./ContactsTab/ContactsTab";
 
-const CONVERSATIONS_KEY = "conversations";
-const CONTACTS_KEY = "contacts";
-
 export default function Sidebar() {
-  const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY);
+  const [tabOpen, setTabOpen] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
+
+  const toggleTab = (index) => {
+    setTabOpen(index);
+  };
 
   const closeModal = () => {
     setModalOpen(false);
@@ -19,54 +20,45 @@ export default function Sidebar() {
 
   return (
     <>
-      <Container fluid className="h-100 d-flex p-2 justify-content-center">
-        <Row
-          className="d-inline-flex m-0 h-100 flex-column"
-          style={{
-            background: "rgba(0, 0, 0, 0.2)",
-            borderRadius: "0.25rem",
-            boxShadow: "6px 6px 20px rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <Col md lg="11" className="d-flex flex-column mw-100 p-2">
-            <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
-              <Nav
-                className="d-inline-flex justify-content-center border-bottom"
-                variant="tabs"
-              >
-                <Nav.Item>
-                  <Nav.Link eventKey={CONVERSATIONS_KEY}>
-                    Conversations
-                  </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey={CONTACTS_KEY}>Contacts</Nav.Link>
-                </Nav.Item>
-              </Nav>
-              <Tab.Content className="h-100 overflow-auto">
-                <Tab.Pane eventKey={CONVERSATIONS_KEY}>
-                  <ConversationsTab />
-                </Tab.Pane>
-                <Tab.Pane eventKey={CONTACTS_KEY}>
-                  <ContactsTab />
-                </Tab.Pane>
-              </Tab.Content>
-            </Tab.Container>
-          </Col>
-          <Col className="d-inline-flex flex-column justify-content-end w-100 p-2 h-100">
-            <button
-              className="w-100 h-100 p-0 m-0"
-              id="form-btn"
-              onClick={() => setModalOpen(true)}
-            >
-              New {activeKey === CONVERSATIONS_KEY ? "Conversation" : "Contact"}
-            </button>
-          </Col>
-        </Row>
-      </Container>
+      <div id="sidebar-container">
+        <div className="tabs-container">
+          <button
+            className={
+              tabOpen === 1
+                ? "conversations-tab active-tab"
+                : "conversations-tab"
+            }
+            onClick={() => toggleTab(1)}
+          >
+            Conversations
+          </button>
+          <button
+            className={
+              tabOpen === 2 ? "contacts-tab active-tab" : "contacts-tab"
+            }
+            onClick={() => toggleTab(2)}
+          >
+            Contacts
+          </button>
+        </div>
+
+        <div className="tabs-content">
+          <div className={tabOpen === 1 ? "content active-content" : "content"}>
+            <ConversationsTab />
+          </div>
+          <div className={tabOpen === 2 ? "content active-content" : "content"}>
+            <ContactsTab />
+          </div>
+        </div>
+        <div className="btn-div">
+          <button onClick={() => setModalOpen(true)} className="submit-btn">
+            New {tabOpen === 1 ? "Conversation" : "Contact"}
+          </button>
+        </div>
+      </div>
 
       <Modal show={modalOpen} onHide={closeModal} centered animation={false}>
-        {activeKey === CONVERSATIONS_KEY ? (
+        {tabOpen === 1 ? (
           <NewConversationModal closeModal={closeModal} />
         ) : (
           <NewContactModal closeModal={closeModal} />

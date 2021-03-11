@@ -1,5 +1,6 @@
 .list {
   background: transparent;
+  height: 100%;
   color: white;
   border-color: #290c4b;
   transition: 0.08s ease-in-out;

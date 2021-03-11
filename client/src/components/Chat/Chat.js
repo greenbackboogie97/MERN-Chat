@@ -68,8 +68,8 @@ export default function Chat() {
       className="d-flex align-items-stretch vh-100"
       style={{ background: "transparent" }}
     >
-      <Container id="Chat" fluid className="p-0">
-        <Row className="h-100 m-0">
+      <Container fluid>
+        <Row className="h-100">
           <ContactsContext.Provider value={{ contacts, setContacts }}>
             <ConversationsContext.Provider
               value={{
@@ -80,10 +80,10 @@ export default function Chat() {
               <OpenConversationIDContext.Provider
                 value={{ openConversationID, setOpenConversationID }}
               >
-                <Col md="4" lg="3">
+                <Col lg="3">
                   <Sidebar />
                 </Col>
-                <Col>
+                <Col lg="9">
                   {openConversationID ? (
                     <OpenConversation />
                   ) : (
