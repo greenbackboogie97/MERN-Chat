@@ -1,8 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import "./chat.css";
+import ChatHeader from "./ChatHeader/ChatHeader";
 import Sidebar from "./Sidebar/Sidebar";
-import OpenConversation from "./OpenConversation/OpenConversation";
-import ConversationReplacement from "./ConversationReplacement/ConversationReplacement";
+import Conversation from "./Main/Conversation/Conversation";
+import Placeholder from "./Main/Placeholder/Placeholder";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import ContactsContext from "../../context/ContactsContext";
@@ -66,25 +67,23 @@ export default function Chat() {
   return (
     <ContactsContext.Provider value={{ contacts, setContacts }}>
       <ConversationsContext.Provider
-        value={{
-          conversations: formatedConversations,
-          setConversations,
-        }}
+        value={{ conversations: formatedConversations, setConversations }}
       >
         <OpenConversationIDContext.Provider
           value={{ openConversationID, setOpenConversationID }}
         >
           <div className="chat-container">
-            <nav>
-              <Sidebar />
-            </nav>
-            <main>
-              {openConversationID ? (
-                <OpenConversation />
-              ) : (
-                <ConversationReplacement />
-              )}
-            </main>
+            <header>
+              <ChatHeader />
+            </header>
+            <div className="content">
+              <nav>
+                <Sidebar />
+              </nav>
+              <main>
+                {openConversationID ? <Conversation /> : <Placeholder />}
+              </main>
+            </div>
           </div>
         </OpenConversationIDContext.Provider>
       </ConversationsContext.Provider>

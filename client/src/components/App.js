@@ -53,7 +53,6 @@ export default function App() {
         <>
           <BrowserRouter>
             <UserContext.Provider value={{ userData, setUserData }}>
-              <Header />
               <Switch>
                 <Route exact path="/" component={Chat} />
                 {!userData.user ? (
