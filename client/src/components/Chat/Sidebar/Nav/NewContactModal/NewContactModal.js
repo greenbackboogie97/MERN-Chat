@@ -86,7 +86,7 @@ export default function NewContactModal({ closeModal }) {
                 variant="link"
                 onClick={() => setError(undefined)}
               >
-                Add
+                Add Contact
               </Button>
             </Tippy>
           </div>

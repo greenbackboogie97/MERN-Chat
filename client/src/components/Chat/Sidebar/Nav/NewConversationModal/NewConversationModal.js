@@ -1,13 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useState } from "react";
-import {
-  Modal,
-  Form,
-  Button,
-  FormGroup,
-  FormCheck,
-  OverlayTrigger,
-  Popover,
-} from "react-bootstrap";
+import { Modal, Form, Button, FormGroup, FormCheck } from "react-bootstrap";
 import ContactsContext from "../../../../../context/ContactsContext";
 import ConversationsContext from "../../../../../context/ConversationsContext";
 import UserContext from "../../../../../context/UserContext";
@@ -16,22 +9,14 @@ import Axios from "axios";
 export default function NewConversationModal({ closeModal }) {
   const { contacts } = useContext(ContactsContext);
   const { userData } = useContext(UserContext);
-  // eslint-disable-next-line no-unused-vars
   const { conversations, setConversations } = useContext(ConversationsContext);
 
   const [error, setError] = useState();
-
-  const popover = (
-    <Popover style={!error ? { display: "none" } : null} id="popover-basic">
-      <Popover.Content>{error}</Popover.Content>
-    </Popover>
-  );
-
   const [selectedContacts, setSelectedContacts] = useState([]);
-  const userID = userData.user.id;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const userID = userData.user.id;
 
     try {
       const submitRes = await Axios.post(
@@ -56,6 +41,7 @@ export default function NewConversationModal({ closeModal }) {
     } catch (err) {
       err.response.data.msg && setError(err.response.data.msg);
     }
+    document.location.reload();
   };
 
   const handleCheckboxChange = (contactUsername) => {
@@ -82,17 +68,15 @@ export default function NewConversationModal({ closeModal }) {
             </FormGroup>
           ))}
           <div className="modal-btn-div">
-            <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-              <Button
-                id="modal-btn"
-                type="submit"
-                variant="link"
-                onClick={() => setError(undefined)}
-                disabled={selectedContacts.length === 0 ? true : false}
-              >
-                Create
-              </Button>
-            </OverlayTrigger>
+            <Button
+              id="modal-btn"
+              type="submit"
+              variant="link"
+              onClick={() => setError(undefined)}
+              disabled={selectedContacts.length === 0 ? true : false}
+            >
+              Create Conversation
+            </Button>
           </div>
         </Form>
       </Modal.Body>

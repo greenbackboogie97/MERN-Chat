@@ -1,0 +1,38 @@
+.sidebar-content {
+  background-color: var(--color-grey-dark-1);
+  flex: 1;
+}
+
+/* //////////////////////////////////////////// */
+.tab-items {
+  height: calc(85vh - 10rem);
+  overflow: auto;
+}
+
+.tabItem {
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-grey-dark-2);
+  transition: 0.06s ease-in-out;
+  cursor: pointer;
+  color: var(--color-grey-light-1);
+}
+
+.tabItem:hover {
+  background-color: var(--color-transparent-dark);
+}
+
+.tabItemActive {
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--color-transparent-dark);
+  border-left: 0.8rem solid var(--color-primary);
+  border-bottom: 1px solid var(--color-grey-dark-2);
+  transition: 0.06s ease-in-out;
+  cursor: pointer;
+  color: var(--color-grey-light-1);
+}

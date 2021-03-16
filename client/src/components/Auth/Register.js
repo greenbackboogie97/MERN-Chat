@@ -90,8 +90,8 @@ export default function Register() {
               <div className="btn-div">
                 <Button
                   className="shadow-none"
-                  size="sm"
-                  variant="link"
+                  size="lg"
+                  variant="outline-light"
                   onClick={loginRoute}
                 >
                   Already have an account? Log in Here!

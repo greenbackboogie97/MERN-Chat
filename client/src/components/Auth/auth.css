@@ -4,19 +4,29 @@
 }
 
 #form-btn {
-  margin: 0px 1rem;
-  padding: 0.4rem;
-  color: rgb(255, 255, 255);
-  border: 0.2rem groove #8827f7;
-  background: #8827f7;
-  border-radius: 0.4rem;
+  padding: 1rem;
+  text-align: center;
+  outline: none;
+  border: none;
+  color: #fff;
+  background-color: #8827f7;
+  border-radius: 0.25rem;
+  box-shadow: 0 6px #4c1c83;
+  margin: 1rem;
+  font-size: 1.4rem;
+}
+
+#form-btn:hover {
+  background-color: #7020ca;
 }
 
 #form-btn:active {
-  border: 0.2rem solid #8827f7;
-  transform: translate3d(0.1rem, 0.1rem, 0);
+  background-color: #7020ca;
+  box-shadow: 0 3px #301253;
+  transform: translateY(3px);
 }
 
 .label {
   color: white;
+  font-size: 1.4rem;
 }

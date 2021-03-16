@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Axios from "axios";
-import Header from "./Header/Header";
 import Register from "./Auth/Register";
 import Login from "./Auth/Login";
 import Chat from "./Chat/Chat";
-import Footer from "./Footer/Footer";
 import Loading from "../Loading/Loading";
 import UserContext from "../context/UserContext";
 
@@ -64,7 +62,6 @@ export default function App() {
                   <Redirect to="/" />
                 )}
               </Switch>
-              <Footer />
             </UserContext.Provider>
           </BrowserRouter>
         </>

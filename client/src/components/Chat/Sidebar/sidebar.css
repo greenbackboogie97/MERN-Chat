@@ -1,80 +1,19 @@
-#sidebar-container {
+.sidebar {
+  min-width: 28rem;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  height: 100%;
-  width: 100%;
-  padding: 0.4rem;
-  background: rgba(0, 0, 0, 0.25);
-  border-radius: 0.25rem;
 }
 
-.tabs-container {
+.credit {
+  flex: 1;
   display: flex;
-  align-items: stretch;
-  flex-direction: row;
-  border-bottom: 1px solid #8827f7;
-}
-
-.conversations-tab,
-.contacts-tab {
-  background: transparent;
-  padding: 0.5rem;
-  text-align: center;
-  outline: none;
-  border: none;
-  color: #9c88b3;
-  border-top-right-radius: 0.25rem;
-  border-top-left-radius: 0.25rem;
-  transition: 0.13s ease-in-out;
-}
-
-.conversations-tab:hover,
-.contacts-tab:hover {
-  background: rgba(136, 39, 247, 0.3);
-}
-
-.active-tab {
-  color: white;
-  background: rgba(136, 39, 247, 0.7);
-}
-
-.tabs-content {
-  align-items: stretch;
-}
-
-.content {
-  display: none;
-  overflow: auto;
-  margin: 0.4rem 0;
-}
-
-.active-content {
-  display: block;
-}
-
-.btn-div {
-  display: flex;
-  vertical-align: 0px;
-}
-
-.submit-btn {
-  padding: 0.8rem 0.4rem;
-  text-align: center;
-  outline: none;
-  border: none;
-  color: #fff;
-  background-color: #8827f7;
-  border-radius: 0.25rem;
-  box-shadow: 0 7px #4c1c83;
-}
-
-.submit-btn:hover {
-  background-color: #7020ca;
-}
-
-.submit-btn:active {
-  background-color: #7020ca;
-  box-shadow: 0 4px #301253;
-  transform: translateY(3px);
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-grey-dark-2);
+  color: var(--color-grey-dark-4);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  user-select: none;
+  min-height: 5rem;
+  max-height: 5rem;
 }

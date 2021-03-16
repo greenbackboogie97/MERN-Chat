@@ -69,8 +69,8 @@ export default function Login() {
               <div className="btn-div">
                 <Button
                   className="shadow-none"
-                  size="sm"
-                  variant="link"
+                  size="lg"
+                  variant="outline-light"
                   onClick={registerRoute}
                 >
                   Don't have an account? Register Here!
