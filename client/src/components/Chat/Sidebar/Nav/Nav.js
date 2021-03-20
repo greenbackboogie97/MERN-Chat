@@ -34,6 +34,7 @@ export default function Nav(props) {
       user: null,
     });
     localStorage.setItem("auth-token", "");
+    localStorage.setItem("username", "");
     history.push("/login");
   };
 

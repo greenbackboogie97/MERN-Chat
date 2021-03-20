@@ -11,35 +11,29 @@ import OpenConversationIDContext from "../../context/OpenConversationIDContext";
 import Axios from "axios";
 
 export default function Chat() {
-  // eslint-disable-next-line no-unused-vars
-  const { userData, setUserData } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
   const [contacts, setContacts] = useState([]);
   const [conversations, setConversations] = useState([]);
   const [openConversationID, setOpenConversationID] = useState();
   const history = useHistory();
 
+  // Get Chat Info
   useEffect(() => {
-    const getContacts = async () => {
+    const getChat = async () => {
+      if (!userData.user) return;
       const userID = userData.user.id;
       const contactsRes = await Axios.post(
         "http://localhost:5000/users/contacts",
         { userID }
       );
-      setContacts(contactsRes.data);
-    };
-    getContacts();
-  }, [userData]);
-
-  useEffect(() => {
-    const getConversations = async () => {
-      const userID = userData.user.id;
       const conversationRes = await Axios.post(
         "http://localhost:5000/users/conversations",
         { userID }
       );
+      setContacts(contactsRes.data);
       setConversations(conversationRes.data);
     };
-    getConversations();
+    getChat();
   }, [userData]);
 
   const formatedConversations = conversations.map((conversation) => {

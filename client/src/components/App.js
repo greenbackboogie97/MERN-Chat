@@ -12,9 +12,9 @@ export default function App() {
     token: undefined,
     user: undefined,
   });
-
   const [isLoading, setIsLoading] = useState(true);
 
+  // Check if Logged in
   useEffect(() => {
     const checkLoggedIn = async () => {
       let token = localStorage.getItem("auth-token");

@@ -7,16 +7,16 @@ import ContactsContext from "../../../../context/ContactsContext";
 
 export default function SidebarContent(props) {
   const { contacts } = useContext(ContactsContext);
-  // eslint-disable-next-line no-unused-vars
-  const { conversations, setConversations } = useContext(ConversationsContext);
-  // eslint-disable-next-line no-unused-vars
+  const { conversations } = useContext(ConversationsContext);
   const { openConversationID, setOpenConversationID } = useContext(
     OpenConversationIDContext
   );
 
+  // Select Conversation
   const handleConversationClick = (e) => {
     setOpenConversationID(e.target.id);
   };
+
   return (
     <div className="sidebar-content">
       <ul className="tab-items">

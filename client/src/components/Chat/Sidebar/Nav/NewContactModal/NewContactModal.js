@@ -10,14 +10,14 @@ import ContactsContext from "../../../../../context/ContactsContext";
 import Axios from "axios";
 
 export default function NewContactModal({ closeModal }) {
+  const { userData } = useContext(UserContext);
+  const { setContacts } = useContext(ContactsContext);
+
   const usernameRef = useRef();
   const nameRef = useRef();
   const [error, setError] = useState();
 
-  const { userData } = useContext(UserContext);
-  // eslint-disable-next-line no-unused-vars
-  const { contacts, setContacts } = useContext(ContactsContext);
-
+  // Add Contact
   const handleSubmit = async (e) => {
     e.preventDefault();
 

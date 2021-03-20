@@ -12,25 +12,19 @@ const io = require("socket.io")(httpServer, {
   cors: { origin: "*" },
 });
 
-// io.on("connection", (socket) => {
-//   const id = socket.handshake.query.id;
-//   socket.join(id);
-//   //Welcome current user
-//   socket.emit("log", "Welcome to PIXEL Chat!");
+io.on("connection", (socket) => {
+  const username = socket.handshake.query.username;
+  socket.join(username);
 
-//   //Broadcast when a user connects
-//   socket.broadcast.emit("log", "A user has joined the chat");
-
-//   //Runs when client disconnects
-//   socket.on("disconnect", () => {
-//     io.emit("log", "A user has left the chat");
-//   });
-
-//   //Listen for chat message
-//   socket.on("message", (msg) => {
-//     io.emit("message", msg);
-//   });
-// });
+  socket.on("send-message", ({ recipients, message }) => {
+    const recipientsUsers = recipients.map((r) => r.username);
+    recipientsUsers.forEach((recipient) => {
+      const newRecipients = recipientsUsers.filter((r) => r !== recipient);
+      newRecipients.push(username);
+      socket.broadcast.to(recipient).emit("receive-message", message);
+    });
+  });
+});
 
 mongoose.connect(
   process.env.MONGODB_CONNECTION_STRING,

@@ -2,66 +2,125 @@ import React, { useContext, useEffect, useState } from "react";
 import "./conversation.css";
 import { BiSend } from "react-icons/bi";
 
+import UserContext from "../../../context/UserContext";
 import ConversationsContext from "../../../context/ConversationsContext";
 import OpenConversationIDContext from "../../../context/OpenConversationIDContext";
 
-export default function Conversation() {
-  const { conversations, setConversations } = useContext(ConversationsContext);
-  const { openConversationID, setOpenConversationID } = useContext(
-    OpenConversationIDContext
-  );
-  const [conversationObject, setConversationObject] = useState();
+import io from "socket.io-client";
 
+export default function Conversation() {
+  const moment = require("moment");
+
+  const { conversations, setConversations } = useContext(ConversationsContext);
+  const { openConversationID } = useContext(OpenConversationIDContext);
+  const { userData } = useContext(UserContext);
+
+  const [socket, setSocket] = useState();
+  const [openConversation, setopenConversation] = useState();
+  const [conversationToUpdate, setConversationToUpdate] = useState();
+  const [text, setText] = useState("");
+  const username = localStorage.getItem("username");
+
+  // Create Socket
+  useEffect(() => {
+    const newSocket = io("localhost:5000", { query: { username } });
+    setSocket(newSocket);
+
+    return () => newSocket.close();
+  }, [username]);
+
+  // Set Open Conversation
   useEffect(() => {
     const conversation = conversations.filter(
       (conversation) => conversation._id === openConversationID
-    );
-    console.log(conversation);
-  }, [openConversationID]);
+    )[0];
+    setopenConversation(conversation);
+  }, [openConversationID, conversations]);
 
-  const handleInputSubmit = (e) => {
+  const emitMessage = async (recipients, message) =>
+    await socket.emit("send-message", {
+      recipients,
+      message,
+    });
+
+  //Send Message
+  const handleInputSubmit = async (e) => {
     e.preventDefault();
+    const time = moment().format("h:mm A");
+    const msg = {
+      sender: userData.user.username,
+      body: text,
+      time: time,
+      conversationID: openConversationID,
+    };
+    const newConObj = {
+      ...openConversation,
+      messages: [...openConversation.messages, msg],
+    };
+
+    const recipientList = newConObj.recipients;
+    emitMessage(recipientList, msg);
+    setopenConversation(newConObj);
+    setText("");
+  };
+  const handleTextChange = (e) => {
+    setText(e.target.value);
   };
 
-  const handleEnterSubmit = (e) =>
-    e.charCode === 13 ? handleInputSubmit(e) : null;
+  // Recieve Messages
+  useEffect(() => {
+    if (socket == null) return;
+    socket.on("receive-message", (msg) => {
+      const conToUpdate = conversations.filter(
+        (con) => con._id === msg.conversationID
+      );
+
+      const newCon = { ...conToUpdate, messages: [conToUpdate.messages, msg] };
+      setConversationToUpdate(newCon);
+    });
+  });
 
   return (
     <div className="conversation-container">
-      {conversationObject && (
+      {openConversation && (
         <>
           <nav className="conversation-nav">
-            <h3 className="conversation-name">{conversationObject._id}</h3>
+            <h3 className="conversation-name">{openConversation._id}</h3>
           </nav>
           <div className="messages-container">
             <ul className="messages">
-              <li>
-                <div className="message">
-                  <div className="sender">Jess</div>
-                  <div className="text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </div>
-                  <div className="time">3:33 PM</div>
-                </div>
-              </li>
-              <li>
-                <div className="message-you">
-                  <div className="sender">You</div>
-                  <div className="text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod.
-                  </div>
-                  <div className="time">3:33 PM</div>
-                </div>
-              </li>
+              {openConversation.messages.map((message, index) => {
+                return (
+                  <li key={index}>
+                    <div
+                      className={
+                        message.sender === userData.user.username
+                          ? "message-you"
+                          : "message"
+                      }
+                    >
+                      <div className="sender">
+                        {message.sender === userData.user.username
+                          ? "You"
+                          : message.sender}
+                      </div>
+                      <div className="text">{message.body}</div>
+                      <div className="time">{message.time}</div>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </div>
-          <form onKeyPress={handleEnterSubmit} className="message-form">
+          <form
+            onKeyPress={(e) => e.charCode === 13 && handleInputSubmit(e)}
+            className="message-form"
+          >
             <input
               className="text-input"
+              onChange={handleTextChange}
               type="text"
+              value={text}
               placeholder="Write something..."
               autoCorrect="off"
             />

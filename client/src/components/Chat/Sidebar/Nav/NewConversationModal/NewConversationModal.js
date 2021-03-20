@@ -9,11 +9,11 @@ import Axios from "axios";
 export default function NewConversationModal({ closeModal }) {
   const { contacts } = useContext(ContactsContext);
   const { userData } = useContext(UserContext);
-  const { conversations, setConversations } = useContext(ConversationsContext);
+  const { setConversations } = useContext(ConversationsContext);
 
-  const [error, setError] = useState();
   const [selectedContacts, setSelectedContacts] = useState([]);
 
+  // Create Conversation
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userID = userData.user.id;
@@ -39,7 +39,7 @@ export default function NewConversationModal({ closeModal }) {
       });
       closeModal();
     } catch (err) {
-      err.response.data.msg && setError(err.response.data.msg);
+      console.log("something went wrong...");
     }
     document.location.reload();
   };
@@ -72,7 +72,6 @@ export default function NewConversationModal({ closeModal }) {
               id="modal-btn"
               type="submit"
               variant="link"
-              onClick={() => setError(undefined)}
               disabled={selectedContacts.length === 0 ? true : false}
             >
               Create Conversation
