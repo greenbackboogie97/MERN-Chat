@@ -7,6 +7,7 @@ import ConversationsContext from "../../../context/ConversationsContext";
 import OpenConversationIDContext from "../../../context/OpenConversationIDContext";
 
 import io from "socket.io-client";
+import Axios from "axios";
 
 export default function Conversation() {
   const moment = require("moment");
@@ -16,8 +17,8 @@ export default function Conversation() {
   const { userData } = useContext(UserContext);
 
   const [socket, setSocket] = useState();
-  const [openConversation, setopenConversation] = useState();
-  const [conversationToUpdate, setConversationToUpdate] = useState();
+  const [openConversation, setOpenConversation] = useState();
+
   const [text, setText] = useState("");
   const username = localStorage.getItem("username");
 
@@ -34,7 +35,7 @@ export default function Conversation() {
     const conversation = conversations.filter(
       (conversation) => conversation._id === openConversationID
     )[0];
-    setopenConversation(conversation);
+    setOpenConversation(conversation);
   }, [openConversationID, conversations]);
 
   const emitMessage = async (recipients, message) =>
@@ -49,7 +50,7 @@ export default function Conversation() {
     const time = moment().format("h:mm A");
     const msg = {
       sender: userData.user.username,
-      body: text,
+      message: text,
       time: time,
       conversationID: openConversationID,
     };
@@ -60,7 +61,7 @@ export default function Conversation() {
 
     const recipientList = newConObj.recipients;
     emitMessage(recipientList, msg);
-    setopenConversation(newConObj);
+    setOpenConversation(newConObj);
     setText("");
   };
   const handleTextChange = (e) => {
@@ -71,14 +72,33 @@ export default function Conversation() {
   useEffect(() => {
     if (socket == null) return;
     socket.on("receive-message", (msg) => {
-      const conToUpdate = conversations.filter(
-        (con) => con._id === msg.conversationID
-      );
+      console.log(openConversation);
+      const sender = msg.sender;
+      const message = msg.message;
+      const time = msg.time;
+      const conversationID = msg.conversationID;
+      const newMessage = { sender, message, time, conversationID };
 
-      const newCon = { ...conToUpdate, messages: [conToUpdate.messages, msg] };
-      setConversationToUpdate(newCon);
+      const newCon = {
+        ...openConversation,
+        messages: [...openConversation.messages, newMessage],
+      };
+      setOpenConversation(newCon);
+
+      const syncMessage = async () => {
+        try {
+          await Axios.post(
+            "http://localhost:5000/users/sync_conversation",
+            newMessage
+          );
+        } catch (err) {
+          err.response.data.msg && console.log(err.response.data.msg);
+        }
+      };
+      syncMessage();
     });
-  });
+    return () => socket.off("receive-message");
+  }, [socket, openConversation]);
 
   return (
     <div className="conversation-container">
@@ -89,23 +109,23 @@ export default function Conversation() {
           </nav>
           <div className="messages-container">
             <ul className="messages">
-              {openConversation.messages.map((message, index) => {
+              {openConversation.messages.map((msg, index) => {
                 return (
                   <li key={index}>
                     <div
                       className={
-                        message.sender === userData.user.username
+                        msg.sender === userData.user.username
                           ? "message-you"
                           : "message"
                       }
                     >
                       <div className="sender">
-                        {message.sender === userData.user.username
+                        {msg.sender === userData.user.username
                           ? "You"
-                          : message.sender}
+                          : msg.sender}
                       </div>
-                      <div className="text">{message.body}</div>
-                      <div className="time">{message.time}</div>
+                      <div className="text">{msg.message}</div>
+                      <div className="time">{msg.time}</div>
                     </div>
                   </li>
                 );

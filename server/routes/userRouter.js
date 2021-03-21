@@ -218,7 +218,7 @@ router.post("/create_conversation", async (req, res) => {
   }
 });
 
-// ---CONVERSATIONS---
+// ---GET-CONVERSATIONS---
 router.post("/conversations", async (req, res) => {
   const curUserID = req.body.userID;
 
@@ -241,6 +241,41 @@ router.post("/conversations", async (req, res) => {
     }
 
     res.json(userConversations);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ---UPDATE-CONVERSATION---
+router.post("/sync_conversation", async (req, res) => {
+  const conversationID = req.body.conID;
+
+  const sender = req.body.msgSender;
+  const message = req.body.msgBody;
+  const time = req.body.msgTime;
+
+  try {
+    const conversationToSync = await Conversation.findById(conversationID);
+    if (!conversationToSync)
+      return res.json({
+        msg: "Mongo could not find the provided conversation.",
+      });
+    const newMessage = {
+      sender: sender,
+      message: message,
+      time: time,
+      conversationID: conversationID,
+    };
+    const newMessages = [...conversationToSync.messages, newMessage];
+    const updatedConversaiton = await Conversation.findByIdAndUpdate(
+      { _id: conversationID },
+      { messages: newMessages }
+    );
+
+    if (!updatedConversaiton)
+      return res.json({ msg: "couldnt update conversation" });
+
+    res.json(message);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
