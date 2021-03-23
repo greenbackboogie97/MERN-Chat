@@ -1,4 +1,86 @@
 .placeholder {
   flex: 1;
   background-color: var(--color-transparent-dark);
+  display: flex;
+  flex-direction: column;
+}
+
+.div-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-grey-dark-2);
+  height: 5rem;
+}
+
+.div-bottom {
+  height: 5rem;
+  background-color: var(--color-grey-dark-2);
+}
+
+.welcome {
+  text-align: center;
+  flex: 1;
+  font-size: 2.5rem;
+  background: linear-gradient(
+    238deg,
+    var(--color-gradient-2),
+    var(--color-gradient-1),
+    var(--color-gradient-2),
+    var(--color-gradient-1),
+    var(--color-gradient-2)
+  );
+  background-size: 600% 600%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: gradientAni 5s ease infinite;
+}
+
+.git {
+  font-size: 5rem;
+  fill: var(--color-grey-light-1);
+  fill-opacity: 70%;
+  cursor: pointer;
+  transition: 0.25s ease-in-out;
+  margin-left: 2rem;
+}
+
+.git:hover {
+  fill-opacity: 100%;
+}
+
+.dependencies-container {
+  flex: 1;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.para-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  min-height: 8rem;
+}
+
+.para {
+  font-size: 1.8rem;
+  color: var(--color-grey-light-2);
+  text-align: center;
+  text-shadow: 2px 2px 4px var(--color-grey-dark-3);
+}
+
+@keyframes gradientAni {
+  0% {
+    background-position: 0% 63%;
+  }
+  50% {
+    background-position: 100% 38%;
+  }
+  100% {
+    background-position: 0% 63%;
+  }
 }

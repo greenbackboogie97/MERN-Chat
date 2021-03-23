@@ -3,17 +3,23 @@ import "./sidebar.css";
 import Nav from "./Nav/Nav";
 import SidebarContent from "./SidebarContent/SidebarContent";
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   const [curTabOpen, setCurTabOpen] = useState(1);
-
   const handleTabOpen = (index) => {
     setCurTabOpen(index);
+  };
+
+  const handleCallback = (data) => {
+    props.parentCallback(data);
   };
 
   return (
     <div className="sidebar">
       <Nav onTabOpen={handleTabOpen} />
-      <SidebarContent tabContentIndex={curTabOpen} />
+      <SidebarContent
+        parentCallback={handleCallback}
+        tabContentIndex={curTabOpen}
+      />
       <div className="credit">© 2021 Omer Ziger. All rights reserved.</div>
     </div>
   );

@@ -7,13 +7,15 @@ import ContactsContext from "../../../../context/ContactsContext";
 
 export default function SidebarContent(props) {
   const { contacts } = useContext(ContactsContext);
-  const { conversations } = useContext(ConversationsContext);
+  const { conversations, setConversations } = useContext(ConversationsContext);
   const { openConversationID, setOpenConversationID } = useContext(
     OpenConversationIDContext
   );
 
   // Select Conversation
   const handleConversationClick = (e) => {
+    setConversations((prev) => prev);
+    props.parentCallback(e.target.id);
     setOpenConversationID(e.target.id);
   };
 
@@ -40,7 +42,8 @@ export default function SidebarContent(props) {
           : contacts.map((contact, index) => {
               return (
                 <li className="tabItem" key={index}>
-                  {contact.name}
+                  <div>Username: {contact.username}</div>
+                  <div>Display Name: {contact.name}</div>
                 </li>
               );
             })}

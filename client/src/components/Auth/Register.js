@@ -56,7 +56,7 @@ export default function Register() {
                 controlId="formBasic"
                 onChange={(e) => setUsername(e.target.value)}
               >
-                <Form.Label className="label">Username</Form.Label>
+                <Form.Label className="label">* Username</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter username"
@@ -67,14 +67,18 @@ export default function Register() {
                 controlId="formBasicPassword"
                 onChange={(e) => setPassword(e.target.value)}
               >
-                <Form.Label className="label">Password</Form.Label>
-                <Form.Control type="password" placeholder="Enter password" />
+                <Form.Label className="label">* Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter password"
+                  autoCorrect="off"
+                />
               </Form.Group>
               <Form.Group
                 controlId="formBasicPasswordCheck"
                 onChange={(e) => setPasswordCheck(e.target.value)}
               >
-                <Form.Label className="label">Confirm password</Form.Label>
+                <Form.Label className="label">* Confirm password</Form.Label>
                 <Form.Control type="password" placeholder="Enter password" />
               </Form.Group>
               <Form.Group
@@ -86,6 +90,7 @@ export default function Register() {
                   type="text"
                   placeholder="Set display name"
                   autoComplete="off"
+                  autoCorrect="off"
                 />
               </Form.Group>
               <div className="btn-div">

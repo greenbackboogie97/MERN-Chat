@@ -10,13 +10,18 @@ import ConversationsContext from "../../context/ConversationsContext";
 import OpenConversationIDContext from "../../context/OpenConversationIDContext";
 import Axios from "axios";
 
-export default function Chat() {
+export default function Chat(props) {
   const { userData } = useContext(UserContext);
   const [contacts, setContacts] = useState([]);
   const [conversations, setConversations] = useState([]);
   const [openConversationID, setOpenConversationID] = useState();
   const history = useHistory();
+  const [sync, setSync] = useState(props.synced);
 
+  const handleSync = (data) => {
+    setSync(data);
+  };
+  
   // Get Chat Info
   useEffect(() => {
     const getChat = async () => {
@@ -34,7 +39,7 @@ export default function Chat() {
       setConversations(conversationRes.data);
     };
     getChat();
-  }, [userData]);
+  }, [userData, sync]);
 
   const formatedConversations = conversations.map((conversation) => {
     const recipients = conversation.recipients.map((recipient) => {
@@ -66,7 +71,7 @@ export default function Chat() {
           value={{ openConversationID, setOpenConversationID }}
         >
           <div className="chat-container">
-            <Sidebar />
+            <Sidebar parentCallback={handleSync} />
             {openConversationID ? <Conversation /> : <Placeholder />}
           </div>
         </OpenConversationIDContext.Provider>

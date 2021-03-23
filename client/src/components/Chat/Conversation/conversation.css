@@ -10,8 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 5rem;
-  max-height: 5rem;
+  height: 5rem;
 }
 
 .conversation-name {
@@ -64,40 +63,47 @@
   width: fit-content;
   float: left;
   background-color: var(--color-primary);
-  max-width: 80%;
+  max-width: 75%;
   margin-bottom: 2.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
+  border-bottom-left-radius: 0;
 }
 
 .message-you {
   display: flex;
   flex-direction: column;
   float: right;
-  padding: 0.6rem 1.8rem;
+  padding: 1rem;
   width: fit-content;
   background-color: var(--color-transparent-dark);
-  max-width: 80%;
+  max-width: 75%;
   margin-bottom: 2.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
+  border-bottom-right-radius: 0;
 }
 
 .sender {
   display: flex;
   color: var(--color-grey-light-3);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  justify-content: center;
 }
+
 .text {
   display: flex;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: var(--color-grey-light-1);
-  padding: 0.8rem 0;
-  overflow-wrap: break-word;
+  text-shadow: 1px 1px 3px var(--color-grey-dark-3);
+  padding: 1rem 0;
+  justify-content: center;
+  word-break: break-all;
 }
+
 .time {
   display: flex;
-  font-size: 1.1rem;
-  justify-content: flex-end;
+  font-size: 1.2rem;
   color: var(--color-grey-light-3);
+  justify-content: center;
 }
 
 /* /////////////////////////////////////////////////////// */
@@ -113,7 +119,7 @@
 
 .text-input {
   flex: 1;
-  border: 0.1rem ridge var(--color-grey-transparent);
+  border: 0.1rem solid var(--color-grey-transparent);
   border-radius: 0.5rem;
   font-size: 1.4rem;
   background-color: var(--color-transparent-dark);

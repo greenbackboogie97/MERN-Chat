@@ -35,6 +35,7 @@
   transition: 0.13 ease-in-out;
   margin: 1rem;
   margin-bottom: 1.5rem;
+  font-size: 1.4rem;
 }
 
 #modal-btn:hover {

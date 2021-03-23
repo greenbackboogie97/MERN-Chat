@@ -58,6 +58,7 @@ export default function Login() {
                   type="text"
                   placeholder="Enter username"
                   autoComplete="off"
+                  autoCorrect="off"
                 />
               </Form.Group>
               <Form.Group

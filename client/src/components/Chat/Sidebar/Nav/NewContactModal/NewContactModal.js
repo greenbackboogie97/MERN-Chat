@@ -56,21 +56,25 @@ export default function NewContactModal({ closeModal }) {
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label>Username</Form.Label>
+            <Form.Label style={{ fontSize: "1.2rem" }}>Username</Form.Label>
             <Form.Control
               autoComplete="off"
+              autoCorrect="off"
               type="text"
               ref={usernameRef}
               required
+              placeholder="Enter username"
             ></Form.Control>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Name</Form.Label>
+            <Form.Label style={{ fontSize: "1.2rem" }}>Display Name</Form.Label>
             <Form.Control
               autoComplete="off"
+              autoCorrect="off"
               type="text"
               ref={nameRef}
               required
+              placeholder="Name your contact"
             ></Form.Control>
           </Form.Group>
           <div className="modal-btn-div">

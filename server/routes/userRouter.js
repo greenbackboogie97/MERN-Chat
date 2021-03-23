@@ -248,11 +248,11 @@ router.post("/conversations", async (req, res) => {
 
 // ---UPDATE-CONVERSATION---
 router.post("/sync_conversation", async (req, res) => {
-  const conversationID = req.body.conID;
+  const conversationID = req.body.conversationID;
 
-  const sender = req.body.msgSender;
-  const message = req.body.msgBody;
-  const time = req.body.msgTime;
+  const sndr = req.body.sender;
+  const mesg = req.body.message;
+  const tim = req.body.time;
 
   try {
     const conversationToSync = await Conversation.findById(conversationID);
@@ -261,9 +261,9 @@ router.post("/sync_conversation", async (req, res) => {
         msg: "Mongo could not find the provided conversation.",
       });
     const newMessage = {
-      sender: sender,
-      message: message,
-      time: time,
+      sender: sndr,
+      message: mesg,
+      time: tim,
       conversationID: conversationID,
     };
     const newMessages = [...conversationToSync.messages, newMessage];
@@ -275,7 +275,7 @@ router.post("/sync_conversation", async (req, res) => {
     if (!updatedConversaiton)
       return res.json({ msg: "couldnt update conversation" });
 
-    res.json(message);
+    res.json(updatedConversaiton);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

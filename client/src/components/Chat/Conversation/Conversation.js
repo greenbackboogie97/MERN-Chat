@@ -1,26 +1,31 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import "./conversation.css";
 import { BiSend } from "react-icons/bi";
 
 import UserContext from "../../../context/UserContext";
 import ConversationsContext from "../../../context/ConversationsContext";
+import ContactsContext from "../../../context/ContactsContext";
 import OpenConversationIDContext from "../../../context/OpenConversationIDContext";
 
 import io from "socket.io-client";
 import Axios from "axios";
 
 export default function Conversation() {
-  const moment = require("moment");
-
-  const { conversations, setConversations } = useContext(ConversationsContext);
+  const { conversations } = useContext(ConversationsContext);
+  const { contacts } = useContext(ContactsContext);
   const { openConversationID } = useContext(OpenConversationIDContext);
   const { userData } = useContext(UserContext);
 
   const [socket, setSocket] = useState();
   const [openConversation, setOpenConversation] = useState();
-
   const [text, setText] = useState("");
+
   const username = localStorage.getItem("username");
+  const moment = require("moment");
+
+  const setRef = useCallback((node) => {
+    if (node) node.scrollIntoView({ smooth: true });
+  }, []);
 
   // Create Socket
   useEffect(() => {
@@ -47,13 +52,16 @@ export default function Conversation() {
   //Send Message
   const handleInputSubmit = async (e) => {
     e.preventDefault();
-    const time = moment().format("h:mm A");
+
+    const time = moment().format("DD/MM/YY h:mm:A");
     const msg = {
       sender: userData.user.username,
       message: text,
       time: time,
       conversationID: openConversationID,
     };
+    if (!text) return;
+
     const newConObj = {
       ...openConversation,
       messages: [...openConversation.messages, msg],
@@ -62,8 +70,18 @@ export default function Conversation() {
     const recipientList = newConObj.recipients;
     emitMessage(recipientList, msg);
     setOpenConversation(newConObj);
+
+    const syncMessage = async () => {
+      try {
+        await Axios.post("http://localhost:5000/users/sync_conversation", msg);
+      } catch (err) {
+        err.response.data.msg && console.log(err.response.data.msg);
+      }
+    };
+    syncMessage();
     setText("");
   };
+
   const handleTextChange = (e) => {
     setText(e.target.value);
   };
@@ -72,7 +90,6 @@ export default function Conversation() {
   useEffect(() => {
     if (socket == null) return;
     socket.on("receive-message", (msg) => {
-      console.log(openConversation);
       const sender = msg.sender;
       const message = msg.message;
       const time = msg.time;
@@ -83,7 +100,7 @@ export default function Conversation() {
         ...openConversation,
         messages: [...openConversation.messages, newMessage],
       };
-      setOpenConversation(newCon);
+      if (conversationID === openConversation._id) setOpenConversation(newCon);
 
       const syncMessage = async () => {
         try {
@@ -110,8 +127,13 @@ export default function Conversation() {
           <div className="messages-container">
             <ul className="messages">
               {openConversation.messages.map((msg, index) => {
+                const isContact = contacts.find(
+                  (contact) => contact.username === msg.sender
+                );
+                const lastMessage =
+                  openConversation.messages.length - 1 === index;
                 return (
-                  <li key={index}>
+                  <li key={index} ref={lastMessage ? setRef : null}>
                     <div
                       className={
                         msg.sender === userData.user.username
@@ -122,6 +144,8 @@ export default function Conversation() {
                       <div className="sender">
                         {msg.sender === userData.user.username
                           ? "You"
+                          : isContact
+                          ? isContact.name
                           : msg.sender}
                       </div>
                       <div className="text">{msg.message}</div>

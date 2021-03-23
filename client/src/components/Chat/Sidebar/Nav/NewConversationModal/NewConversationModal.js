@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext, useState } from "react";
 import { Modal, Form, Button, FormGroup, FormCheck } from "react-bootstrap";
 import ContactsContext from "../../../../../context/ContactsContext";
@@ -17,7 +16,6 @@ export default function NewConversationModal({ closeModal }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userID = userData.user.id;
-
     try {
       const submitRes = await Axios.post(
         "http://localhost:5000/users/create_conversation",
@@ -41,7 +39,6 @@ export default function NewConversationModal({ closeModal }) {
     } catch (err) {
       console.log("something went wrong...");
     }
-    document.location.reload();
   };
 
   const handleCheckboxChange = (contactUsername) => {
@@ -60,6 +57,7 @@ export default function NewConversationModal({ closeModal }) {
           {contacts.map((contact, index) => (
             <FormGroup controlId={contact.username} key={index}>
               <FormCheck
+                style={{ fontSize: "1.2rem", margin: "1rem" }}
                 type="checkbox"
                 value={selectedContacts.includes(contact.username)}
                 label={contact.name}
