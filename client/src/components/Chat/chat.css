@@ -6,3 +6,10 @@
   height: 85vh;
   display: flex;
 }
+
+@media screen and (max-width: 1220px) {
+  .chat-container {
+    margin: unset;
+    height: 100vh;
+  }
+}

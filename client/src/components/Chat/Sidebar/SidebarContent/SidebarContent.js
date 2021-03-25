@@ -15,7 +15,10 @@ export default function SidebarContent(props) {
   // Select Conversation
   const handleConversationClick = (e) => {
     setConversations((prev) => prev);
-    props.parentCallback(e.target.id);
+    props.parentCallback({
+      sidebarDisplay: "none",
+      conversationDisplay: "flex",
+    });
     setOpenConversationID(e.target.id);
   };
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import "./conversation.css";
-import { BiSend } from "react-icons/bi";
+import { BiSend, BiMenu } from "react-icons/bi";
 
 import UserContext from "../../../context/UserContext";
 import ConversationsContext from "../../../context/ConversationsContext";
@@ -10,7 +10,7 @@ import OpenConversationIDContext from "../../../context/OpenConversationIDContex
 import io from "socket.io-client";
 import Axios from "axios";
 
-export default function Conversation() {
+export default function Conversation(props) {
   const { conversations } = useContext(ConversationsContext);
   const { contacts } = useContext(ContactsContext);
   const { openConversationID } = useContext(OpenConversationIDContext);

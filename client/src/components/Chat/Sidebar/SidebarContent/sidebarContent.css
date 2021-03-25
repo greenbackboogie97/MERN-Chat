@@ -39,3 +39,9 @@
   cursor: pointer;
   color: var(--color-grey-light-1);
 }
+
+@media screen and (max-width: 1220px) {
+  .tab-items {
+    height: calc(100vh - 10rem);
+  }
+}

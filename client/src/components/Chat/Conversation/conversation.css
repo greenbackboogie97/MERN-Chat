@@ -152,3 +152,9 @@
 .send:active {
   color: var(--color-primary);
 }
+
+@media screen and (max-width: 1220px) {
+  .messages-container {
+    height: calc(100vh - 10rem);
+  }
+}

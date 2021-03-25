@@ -18,10 +18,16 @@ export default function Chat(props) {
   const history = useHistory();
   const [sync, setSync] = useState(props.synced);
 
+  useEffect(() => {
+    if (!userData.user) {
+      history.push("/login");
+    }
+  });
+
   const handleSync = (data) => {
     setSync(data);
   };
-  
+
   // Get Chat Info
   useEffect(() => {
     const getChat = async () => {
@@ -54,12 +60,6 @@ export default function Chat(props) {
     });
 
     return { ...conversation, recipients };
-  });
-
-  useEffect(() => {
-    if (!userData.user) {
-      history.push("/login");
-    }
   });
 
   return (

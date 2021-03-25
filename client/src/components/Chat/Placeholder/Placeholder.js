@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import "./placeholder.css";
 import { AiOutlineGithub } from "react-icons/ai";
+
 import UserContext from "../../../context/UserContext";
 import { useEffect } from "react";
 
-export default function Placeholder() {
+export default function Placeholder(props) {
   const { userData } = useContext(UserContext);
   const [name, setName] = useState();
 
@@ -23,7 +24,7 @@ export default function Placeholder() {
           <p className="para">
             This real-time chat app was built using React.
             <br /> Server is based on NodeJS & Express.
-            <br /> User authentication is based on JWT & Bcrypt.
+            <br /> User authentication is based on JWT & BCRYPT.
             <br /> Database in use is MongoDB.
             <br /> Websocket implemented with Socket.io .
           </p>
