@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import "./conversation.css";
-import { BiSend, BiMenu } from "react-icons/bi";
+import { BiSend } from "react-icons/bi";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 import UserContext from "../../../context/UserContext";
 import ConversationsContext from "../../../context/ConversationsContext";
@@ -117,11 +118,22 @@ export default function Conversation(props) {
     return () => socket.off("receive-message");
   }, [socket, openConversation]);
 
+  const handleArrowClick = () => {};
+
   return (
-    <div className="conversation-container">
+    <div
+      style={
+        window.innerWidth > 1000 && openConversation
+          ? { display: "flex" }
+          : null
+      }
+      className="conversation-container"
+      id="conversation-container"
+    >
       {openConversation && (
         <>
           <nav className="conversation-nav">
+            <AiOutlineArrowLeft id="arrow-icon" onClick={handleArrowClick} />
             <h3 className="conversation-name">{openConversation._id}</h3>
           </nav>
           <div className="messages-container">

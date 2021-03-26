@@ -13,6 +13,7 @@ export default function App() {
     user: undefined,
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [width, setWidth] = useState(window.innerWidth);
 
   // Check if Logged in
   useEffect(() => {
@@ -44,6 +45,15 @@ export default function App() {
     };
     checkLoggedIn();
   }, []);
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", setWidth(window.innerWidth));
+    console.log(width);
+  }, [width]);
 
   return (
     <>

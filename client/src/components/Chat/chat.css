@@ -11,5 +11,6 @@
   .chat-container {
     margin: unset;
     height: 100vh;
+    border-radius: unset;
   }
 }

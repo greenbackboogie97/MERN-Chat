@@ -17,6 +17,8 @@ export default function Chat(props) {
   const [openConversationID, setOpenConversationID] = useState();
   const history = useHistory();
   const [sync, setSync] = useState(props.synced);
+ 
+  const [appDisplay, setAppDisplay] = useState();
 
   useEffect(() => {
     if (!userData.user) {
@@ -61,6 +63,10 @@ export default function Chat(props) {
 
     return { ...conversation, recipients };
   });
+
+  // useEffect(() => {
+  //   width > 1000 ? setAppDisplay("desktop") : setAppDisplay("mobile");
+  // }, []);
 
   return (
     <ContactsContext.Provider value={{ contacts, setContacts }}>

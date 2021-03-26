@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./sidebarContent.css";
 
 import ConversationsContext from "../../../../context/ConversationsContext";
@@ -11,14 +11,16 @@ export default function SidebarContent(props) {
   const { openConversationID, setOpenConversationID } = useContext(
     OpenConversationIDContext
   );
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, [setWidth]);
 
   // Select Conversation
   const handleConversationClick = (e) => {
     setConversations((prev) => prev);
-    props.parentCallback({
-      sidebarDisplay: "none",
-      conversationDisplay: "flex",
-    });
+    props.parentCallback(e.target.id);
     setOpenConversationID(e.target.id);
   };
 

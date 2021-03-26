@@ -7,10 +7,16 @@
 
 .div-top {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
   background-color: var(--color-grey-dark-2);
   height: 5rem;
+}
+
+#arrow-icon {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--color-grey-light-1);
 }
 
 .div-bottom {
@@ -20,8 +26,8 @@
 
 .welcome {
   text-align: center;
-  flex: 1;
   font-size: 2.5rem;
+  margin: 1rem;
   background: linear-gradient(
     238deg,
     var(--color-gradient-2),
@@ -97,9 +103,13 @@
   }
 }
 
+#arrow-icon {
+  display: none;
+}
+
 @media screen and (max-width: 1000px) {
   .welcome {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     margin-right: 3.5rem;
   }
 
@@ -112,6 +122,10 @@
   }
 
   .menu-button {
+    display: block;
+  }
+
+  #arrow-icon {
     display: block;
   }
 }

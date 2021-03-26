@@ -61,3 +61,12 @@
   cursor: pointer;
   transition: 0.13s ease-in;
 }
+
+@media only screen and (max-width: 1000px) {
+  .tab,
+  .tabAdd,
+  .tabActive,
+  .logout {
+    font-size: 1.8rem;
+  }
+}
