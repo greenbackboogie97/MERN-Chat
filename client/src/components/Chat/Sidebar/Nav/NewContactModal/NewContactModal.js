@@ -8,10 +8,12 @@ import "tippy.js/themes/light.css";
 import UserContext from "../../../../../context/UserContext";
 import ContactsContext from "../../../../../context/ContactsContext";
 import Axios from "axios";
+import URLServerContext from "../../../../../context/URLServerContext";
 
 export default function NewContactModal({ closeModal }) {
   const { userData } = useContext(UserContext);
   const { setContacts } = useContext(ContactsContext);
+  const { URL } = useContext(URLServerContext);
 
   const usernameRef = useRef();
   const nameRef = useRef();
@@ -27,10 +29,9 @@ export default function NewContactModal({ closeModal }) {
     const contactData = { usernameValue, nameValue, userID };
 
     try {
-      const submitRes = await Axios.post(
-        "http://localhost:5000/users/create_contact",
-        { contactData }
-      );
+      const submitRes = await Axios.post(`${URL}/users/create_contact`, {
+        contactData,
+      });
 
       if (!submitRes) {
         console.log("something went wrong.");

@@ -3,12 +3,14 @@ import { Modal, Form, Button, FormGroup, FormCheck } from "react-bootstrap";
 import ContactsContext from "../../../../../context/ContactsContext";
 import ConversationsContext from "../../../../../context/ConversationsContext";
 import UserContext from "../../../../../context/UserContext";
+import URLServerContext from "../../../../../context/URLServerContext";
 import Axios from "axios";
 
 export default function NewConversationModal({ closeModal }) {
   const { contacts } = useContext(ContactsContext);
   const { userData } = useContext(UserContext);
   const { setConversations } = useContext(ConversationsContext);
+  const { URL } = useContext(URLServerContext);
 
   const [selectedContacts, setSelectedContacts] = useState([]);
 
@@ -17,13 +19,10 @@ export default function NewConversationModal({ closeModal }) {
     e.preventDefault();
     const userID = userData.user.id;
     try {
-      const submitRes = await Axios.post(
-        "http://localhost:5000/users/create_conversation",
-        {
-          selectedContacts,
-          userID,
-        }
-      );
+      const submitRes = await Axios.post(`${URL}/users/create_conversation`, {
+        selectedContacts,
+        userID,
+      });
 
       if (!submitRes) console.log("something went wrong...");
       setConversations((prevConversations) => {

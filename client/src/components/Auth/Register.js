@@ -7,6 +7,7 @@ import "tippy.js/dist/svg-arrow.css";
 import "tippy.js/themes/light.css";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
+import URLServerContext from "../../context/URLServerContext";
 import Axios from "axios";
 
 export default function Register() {
@@ -16,6 +17,7 @@ export default function Register() {
   const [displayName, setDisplayName] = useState();
   const [error, setError] = useState();
 
+  const { URL } = useContext(URLServerContext);
   const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
@@ -24,8 +26,8 @@ export default function Register() {
 
     try {
       const newUser = { username, password, passwordCheck, displayName };
-      await Axios.post("http://localhost:5000/users/register", newUser);
-      const loginRes = await Axios.post("http://localhost:5000/users/login", {
+      await Axios.post(`${URL}/users/register`, newUser);
+      const loginRes = await Axios.post(`${URL}/users/login`, {
         username,
         password,
       });

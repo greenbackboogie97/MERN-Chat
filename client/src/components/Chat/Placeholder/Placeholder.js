@@ -5,7 +5,7 @@ import * as Ai from "react-icons/ai";
 
 import UserContext from "../../../context/UserContext";
 
-export default function Placeholder() {
+export default function Placeholder({ setShowSidebar, setShowChat }) {
   const { userData } = useContext(UserContext);
   const [name, setName] = useState();
 
@@ -14,7 +14,10 @@ export default function Placeholder() {
     setName(userData.user.displayName);
   }, [userData]);
 
-  const handleArrowClick = () => {};
+  const handleArrowClick = () => {
+    setShowChat(false);
+    setShowSidebar(true);
+  };
 
   return (
     <div className="placeholder" id="placeholder">

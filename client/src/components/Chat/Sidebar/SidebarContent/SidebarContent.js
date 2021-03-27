@@ -4,6 +4,7 @@ import "./sidebarContent.css";
 import ConversationsContext from "../../../../context/ConversationsContext";
 import OpenConversationIDContext from "../../../../context/OpenConversationIDContext";
 import ContactsContext from "../../../../context/ContactsContext";
+import DisplayWidthContext from "../../../../context/DisplayWidthContext";
 
 export default function SidebarContent(props) {
   const { contacts } = useContext(ContactsContext);
@@ -11,17 +12,17 @@ export default function SidebarContent(props) {
   const { openConversationID, setOpenConversationID } = useContext(
     OpenConversationIDContext
   );
-  const [width, setWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    setWidth(window.innerWidth);
-  }, [setWidth]);
+  const { width } = useContext(DisplayWidthContext);
 
   // Select Conversation
   const handleConversationClick = (e) => {
     setConversations((prev) => prev);
     props.parentCallback(e.target.id);
     setOpenConversationID(e.target.id);
+    if (width < 1000) {
+      props.setShowChat(true);
+      props.setShowSidebar(false);
+    }
   };
 
   return (

@@ -17,6 +17,8 @@ export default function Sidebar(props) {
     <div className="sidebar" id="sidebar">
       <Nav onTabOpen={handleTabOpen} />
       <SidebarContent
+        setShowSidebar={props.setShowSidebar}
+        setShowChat={props.setShowChat}
         parentCallback={handleCallback}
         tabContentIndex={curTabOpen}
       />

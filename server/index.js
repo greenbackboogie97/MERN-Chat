@@ -39,6 +39,9 @@ mongoose.connect(
     console.log("MongoDB connection established.");
   }
 );
+app.get("/", (req, res) => {
+  res.send("server is live.");
+});
 
 app.use("/users", require("./routes/userRouter"));
 

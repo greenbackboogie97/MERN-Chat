@@ -8,12 +8,14 @@ import "tippy.js/themes/light.css";
 import UserContext from "../../context/UserContext";
 import "./auth.css";
 import Axios from "axios";
+import URLServerContext from "../../context/URLServerContext";
 
 export default function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
 
+  const { URL } = useContext(URLServerContext);
   const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
@@ -22,10 +24,7 @@ export default function Login() {
 
     try {
       const loginUser = { username, password };
-      const loginRes = await Axios.post(
-        "http://localhost:5000/users/login",
-        loginUser
-      );
+      const loginRes = await Axios.post(`${URL}/users/login`, loginUser);
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data.user,

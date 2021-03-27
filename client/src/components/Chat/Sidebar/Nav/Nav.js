@@ -13,8 +13,7 @@ import UserContext from "../../../../context/UserContext";
 
 export default function Nav(props) {
   const history = useHistory();
-  // eslint-disable-next-line no-unused-vars
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
 
   const [tabOpen, setTabOpen] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);

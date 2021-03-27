@@ -7,6 +7,7 @@ import UserContext from "../../../context/UserContext";
 import ConversationsContext from "../../../context/ConversationsContext";
 import ContactsContext from "../../../context/ContactsContext";
 import OpenConversationIDContext from "../../../context/OpenConversationIDContext";
+import URLServerContext from "../../../context/URLServerContext";
 
 import io from "socket.io-client";
 import Axios from "axios";
@@ -16,6 +17,7 @@ export default function Conversation(props) {
   const { contacts } = useContext(ContactsContext);
   const { openConversationID } = useContext(OpenConversationIDContext);
   const { userData } = useContext(UserContext);
+  const { URL } = useContext(URLServerContext);
 
   const [socket, setSocket] = useState();
   const [openConversation, setOpenConversation] = useState();
@@ -30,11 +32,11 @@ export default function Conversation(props) {
 
   // Create Socket
   useEffect(() => {
-    const newSocket = io("localhost:5000", { query: { username } });
+    const newSocket = io(`${URL}`, { query: { username } });
     setSocket(newSocket);
 
     return () => newSocket.close();
-  }, [username]);
+  }, [username, URL]);
 
   // Set Open Conversation
   useEffect(() => {
@@ -74,7 +76,7 @@ export default function Conversation(props) {
 
     const syncMessage = async () => {
       try {
-        await Axios.post("http://localhost:5000/users/sync_conversation", msg);
+        await Axios.post(`${URL}/users/sync_conversation`, msg);
       } catch (err) {
         err.response.data.msg && console.log(err.response.data.msg);
       }
@@ -105,10 +107,7 @@ export default function Conversation(props) {
 
       const syncMessage = async () => {
         try {
-          await Axios.post(
-            "http://localhost:5000/users/sync_conversation",
-            newMessage
-          );
+          await Axios.post(`${URL}/users/sync_conversation`, newMessage);
         } catch (err) {
           err.response.data.msg && console.log(err.response.data.msg);
         }
@@ -116,9 +115,12 @@ export default function Conversation(props) {
       syncMessage();
     });
     return () => socket.off("receive-message");
-  }, [socket, openConversation]);
+  }, [socket, openConversation, URL]);
 
-  const handleArrowClick = () => {};
+  const handleArrowClick = () => {
+    props.setShowSidebar(true);
+    props.setShowChat(false);
+  };
 
   return (
     <div

@@ -24,20 +24,20 @@ router.post("/register", async (req, res) => {
     let { username, password, passwordCheck, displayName } = req.body;
 
     if (!username || !password || !passwordCheck)
-      return res.status(400).json({ msg: "Missing fields." });
-    if (password.length < 6)
+      return res.status(400).json({ msg: "Missing fields" });
+    if (password.length < 7)
       return res
         .status(400)
-        .json({ msg: "Password should be at least 6 characters long." });
+        .json({ msg: "Password should be at least 6 characters long" });
     if (password !== passwordCheck)
       return res.status(400).json({
-        msg: "Passwords do not match.",
+        msg: "Passwords do not match",
       });
 
     const existingUser = await User.findOne({ username: username });
     if (existingUser)
       return res.status(400).json({
-        msg: "An account with that username already exists.",
+        msg: "An account with that username already exists",
       });
     if (!displayName) displayName = randomName;
 
@@ -63,12 +63,12 @@ router.post("/login", async (req, res) => {
 
     // Validate
     if (!username || !password)
-      return res.status(400).json({ msg: "Missing fields." });
+      return res.status(400).json({ msg: "Missing fields" });
 
     const user = await User.findOne({ username: username });
     if (!user)
       return res.status(400).json({
-        msg: "No account with that username has been registered.",
+        msg: "No account with that username has been registered",
       });
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
@@ -123,20 +123,20 @@ router.post("/create_contact", async (req, res) => {
     const curUser = await User.findById(userID);
     if (!curUser) {
       return res.status(400).json({
-        msg: "Authorization denied.",
+        msg: "Authorization denied",
       });
     }
 
     const user = await User.findOne({ username: usernameValue });
     if (!user) {
       return res.status(400).json({
-        msg: "A user with the provided username does not exist.",
+        msg: "A user with the provided username does not exist",
       });
     }
 
     if (usernameValue === curUser.username) {
       return res.status(400).json({
-        msg: "You cannot add yourself.",
+        msg: "You cannot add yourself",
       });
     }
 
@@ -146,7 +146,7 @@ router.post("/create_contact", async (req, res) => {
 
     if (isContact) {
       return res.status(400).json({
-        msg: "This user is already in your contact list.",
+        msg: "This user is already in your contact list",
       });
     }
 
